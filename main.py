@@ -18,6 +18,7 @@ import os
 from dotenv import load_dotenv
 import gunicorn
 import psycopg2
+from urllib.parse import quote
 # "C:\Users\jirka\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts\pipreqs.exe" ./ --force
 load_dotenv()
 
@@ -41,7 +42,8 @@ my_password=os.environ.get("PASSWORD")
 class Base(DeclarativeBase):
     pass
 db_path = os.path.join('C:/Users/jirka/Desktop/100 days challenge/Udemy/Day 69 Capstone part 4/instance/posts.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI",f'sqlite:///{db_path}')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI",f'sqlite:///{db_path}')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -269,10 +271,10 @@ def send_email(name,email,phone,message):
         connection.login(user=my_email,password=my_password)
         connection.sendmail(from_addr=my_email,
                             to_addrs=my_email,
-                            msg=(f"Subject: Client Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage: \n{message}")
+                            msg=(f"Subject: Client Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage: \n{message}").encode(encoding='utf-8', errors='strict')
                             )
-# .encode(encoding='utf-8', errors='strict')      
+             
     return render_template("contact.html", msg_sent=True,current_user=current_user)
 
 if __name__ == "__main__":
-    app.run(debug=False, port=5002)
+    app.run(debug=True, port=5002)
