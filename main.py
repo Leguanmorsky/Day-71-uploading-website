@@ -18,7 +18,7 @@ import os
 from dotenv import load_dotenv
 import gunicorn
 import psycopg2
-
+# "C:\Users\jirka\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\Scripts\pipreqs.exe" ./ --force
 load_dotenv()
 
 app = Flask(__name__)
@@ -269,9 +269,9 @@ def send_email(name,email,phone,message):
         connection.login(user=my_email,password=my_password)
         connection.sendmail(from_addr=my_email,
                             to_addrs=my_email,
-                            msg=(f"Subject: Client Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage: \n{message}").encode(encoding='utf-8', errors='strict')
+                            msg=(f"Subject: Client Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage: \n{message}")
                             )
-        
+# .encode(encoding='utf-8', errors='strict')      
     return render_template("contact.html", msg_sent=True,current_user=current_user)
 
 if __name__ == "__main__":
