@@ -42,8 +42,8 @@ my_password=os.environ.get("PASSWORD")
 class Base(DeclarativeBase):
     pass
 db_path = os.path.join('C:/Users/jirka/Desktop/100 days challenge/Udemy/Day 69 Capstone part 4/instance/posts.db')
-# app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI",f'sqlite:///{db_path}')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI",f'sqlite:///{db_path}')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
